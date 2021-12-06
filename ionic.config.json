@@ -1,0 +1,7 @@
+{
+  "name": "Bookscape-Ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
