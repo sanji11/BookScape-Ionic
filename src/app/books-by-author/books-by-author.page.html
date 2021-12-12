@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Books By Author</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3><strong>Other Books By {{authorName}}</strong></h3>
+  <ion-list>
+    <ion-item button *ngFor="let item of (booksByAuthor | async)" [routerLink] = "['/book-detail', {key: item.key, authors: item.author_name}]">
+      <img src='https://covers.openlibrary.org/b/OLID/{{item.cover_edition_key}}-L.jpg' height="60" style="padding-right: 10px;" *ngIf="item.cover_edition_key; else noCoverImage" alt="">
+      <ng-template #noCoverImage>
+        <img src='https://voice.global/wp-content/plugins/wbb-publications/public/assets/img/placeholder.jpg' height="60" style="padding-right: 10px;" alt="">
+      </ng-template>
+      <ion-label>
+        <h2>{{item.title}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

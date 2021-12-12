@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Search Books</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3><strong>Available Books</strong></h3>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)" placeholder="Search book by title..."></ion-searchbar>
+
+  <ion-spinner *ngIf="isLoading"></ion-spinner>
+ <ion-list>
+   <!--[queryParams]="{book: item.key}"-->
+    <ion-item button *ngFor="let item of (results | async)" [routerLink] = "['/book-detail', {key: item.key, authors: item.author_name}]" >
+
+      <img src='https://covers.openlibrary.org/b/OLID/{{item.cover_edition_key}}-L.jpg' height="60" style="padding-right: 10px;" *ngIf="item.cover_edition_key; else noCoverImage" alt="">
+      <ng-template #noCoverImage>
+        <img src='https://voice.global/wp-content/plugins/wbb-publications/public/assets/img/placeholder.jpg' height="60" style="padding-right: 10px;" alt="">
+      </ng-template>
+      <ion-label>
+        <h2>{{item.title}}</h2>
+        <p>{{item.author_name}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Book Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="bookDetails">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!--https://covers.openlibrary.org/b/id/6498519-S.jpg-->
+        <img src='https://covers.openlibrary.org/b/id/{{bookDetails.covers[0]}}-M.jpg' *ngIf="bookDetails.covers[0]; else noCoverImage" alt="">
+        <ng-template #noCoverImage>
+          <img src='https://voice.global/wp-content/plugins/wbb-publications/public/assets/img/placeholder.jpg' height="60" style="padding-right: 10px;" alt="">
+        </ng-template>
+      </ion-col>
+      <ion-col>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label><strong>Title: </strong>{{bookDetails.title}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label><strong>Author Name(s): </strong>{{authorNames}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label><strong>First published at </strong>{{bookDetails.first_publish_date}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label><strong>Work ID: </strong>{{bookDetails.key}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p *ngIf="bookDetails.description && bookDetails.description.value; else noDesValue"><strong>Description: </strong>{{bookDetails.description.value}}</p>
+        <ng-template #noDesValue>
+          <p><strong>Description: </strong>{{bookDetails.description}}</p>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-button color="dark" (click)="addFavorites()">Add To Your Favorites</ion-button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-button color="dark" [routerLink]="['/genres-list', {genres: bookDetails.subjects}]">View Genres</ion-button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-button color="dark" [routerLink]="['/authors-list', {authors: authorNames}]">View Other Books By The Author(s)</ion-button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

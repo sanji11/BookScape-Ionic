@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Author(s) List</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3><strong>Author List of The Book</strong></h3>
+  <ion-list>
+    <ion-item button *ngFor="let item of authorList" [routerLink]="['/books-by-author', item]">
+      <ion-label>{{item}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

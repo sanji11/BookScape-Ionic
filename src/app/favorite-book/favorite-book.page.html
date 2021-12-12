@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Favorite Books</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/search']">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3><strong>List of your favorite books</strong></h3>
+  <ion-list>
+    <!--[queryParams]="{book: item.key}"-->
+    <ion-item-sliding *ngFor="let item of data">
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click) = "deleteBook(item)">
+          <ion-icon name="trash" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item button [routerLink] = "['/book-detail', {key: item.key, authors: item.author}]" >
+        <!--<img src='https://covers.openlibrary.org/b/id/{{bookDetails.covers[0]}}-M.jpg' *ngIf="bookDetails.covers[0]; else noCoverImage" alt="">-->
+        <img src='https://covers.openlibrary.org/b/id/{{item.coverKey}}-L.jpg' height="60" style="padding-right: 10px;" *ngIf="item.coverKey; else noCoverImage" alt="abc">
+        <ng-template #noCoverImage>
+          <img src='https://voice.global/wp-content/plugins/wbb-publications/public/assets/img/placeholder.jpg' height="60" style="padding-right: 10px;" alt="no image">
+        </ng-template>
+        <ion-label>
+          <h2>{{item.title}}</h2>
+          <p>{{item.author}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+   </ion-list>
+</ion-content>
